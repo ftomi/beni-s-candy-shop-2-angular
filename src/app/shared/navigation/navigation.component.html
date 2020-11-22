@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" #closeLoginModal data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -11,22 +11,22 @@
         <h3 class="modal-title mb-3">Bejelentkezés</h3>
         <div class="mb-5">
 
-          <form>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="form-group">
-              <input type="email" class="form-control custom-input" id="email">
+              <input type="email" formControlName="email" class="form-control custom-input" id="email">
               <label for="email" class="col-form-label">E-mail</label>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control custom-input" id="password">
+              <input type="password" formControlName="password" class="form-control custom-input" id="password">
               <label for="password" class="col-form-label">Jelszó</label>
             </div>
           </form>
         </div>
 
         <a class="font-weight-bold my-3" style="color: #dc386d">Elfelejtett jelszó</a>
-        <button type="button" class="mt-4 btn btn-small p-3  btn-block text-uppercase" style="background-color: #dc386d; color: white">Bejelentkezés</button>
+        <button (click)="onLogin()" type="button" class="mt-4 btn btn-small p-3  btn-block text-uppercase">Bejelentkezés</button>
         <div class="mt-3 py-3">
-          <span>Van már fiókod? <a class=" font-weight-bold" style="color: #dc386d" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Bejelentkezés</a></span>
+          <span>Nincs még fiókod? <a class=" font-weight-bold" style="color: #dc386d" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">Regisztrálok</a></span>
         </div>
       </div>
     </div>
@@ -36,24 +36,24 @@
   <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" #closeRegisterModal class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body p-5">
         <h3 class="modal-title mb-3">Regisztráció</h3>
         <div class="mb-5">
-          <form class="mb-3">
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="mb-3">
             <div class="form-group">
-              <input type="email" class="form-control custom-input" id="email-register">
+              <input type="email" formControlName="email" class="form-control custom-input" id="email-register">
               <label for="email-register" class="col-form-label">E-mail</label>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control custom-input" id="password-register">
+              <input type="password" formControlName="password" class="form-control custom-input" id="password-register">
               <label for="password-register" class="col-form-label">Jelszó</label>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control custom-input" id="password-again-register">
+              <input type="password" formControlName="password2" class="form-control custom-input" id="password-again-register">
               <label for="password-again-register" class="col-form-label">Jelszó újra</label>
             </div>
           </form></div>
@@ -61,9 +61,9 @@
           <input type="checkbox" id="accept-terms">
           <label for="accept-terms" class="col-form-label">Elfogadom az <a class="font-weight-bold my-3" style="color: #dc386d">adatvédelmi nyilatkozatot</a></label>
         </div>
-        <button type="button" class="mt-5 btn btn-small p-3  btn-block text-uppercase" style="background-color: #dc386d; color: white">Bejelentkezés</button>
+        <button (click)="onRegister()" type="button" class="mt-5 btn btn-small p-3  btn-block text-uppercase">Bejelentkezés</button>
         <div class="mt-3 py-3">
-          <span>Nincs még fiókod? <a class=" font-weight-bold" style="color: #dc386d" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">Regisztrálok</a></span>
+          <span>Van már fiókod? <a class=" font-weight-bold" style="color: #dc386d" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Bejelentkezés</a></span>
         </div>
       </div>
     </div>
@@ -73,16 +73,40 @@
   <div class="topbar">
     <nav class=" navbar navbar-dark navbar-expand px-5">
       <ul class="ml-auto navbar-nav mt-2 mt-lg-0">
-        <li class="nav-item active">
+        <li *ngIf="!user; else userLoggedIn" class="nav-item active">
           <a class="nav-link text-uppercase" href="#"  data-toggle="modal" data-target="#loginModal"
           >
                         <span class="d-md-none d-inline-block "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20">
                             <path fill-rule="evenodd" fill="white" d="M10.5 5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm.061 3.073a4 4 0 10-5.123 0 6.004 6.004 0 00-3.431 5.142.75.75 0 001.498.07 4.5 4.5 0 018.99 0 .75.75 0 101.498-.07 6.005 6.005 0 00-3.432-5.142z"></path></svg></span>
             <span class="d-none d-md-inline-block pl-md-2 " >Bejelentkezés</span>
-            <span class="sr-only">(current)</span></a
+            <span class="sr-only">(current)</span></a>
 
-          >
         </li>
+
+        <ng-template #userLoggedIn>
+          <li class="nav-item dropdown active">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="userDetailsDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{user.username ? user.username : user.email}}
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="userDetailsDropdown"
+            >
+              <a class="dropdown-item" [routerLink]="['account']">Profilom</a>
+              <a class="dropdown-item" [routerLink]="['account/orders']">Rendeléseim</a>
+              <a class="dropdown-item" (click)="logout()">Kijelentkezés</a>
+            </div>
+          </li>
+
+        </ng-template>
         <li class="nav-item active text-sm">
           <a class="nav-link text-uppercase" href="#"
           >Kosár (0) <span class="sr-only">(current)</span></a

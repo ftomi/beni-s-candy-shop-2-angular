@@ -5,7 +5,8 @@ import { PartnersComponent } from './partners/partners.component';
 import { FooterComponent } from './footer/footer.component';
 import {RouterModule} from '@angular/router';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-
+import {ReactiveFormsModule,
+  FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
   ],
     imports: [
         CommonModule,
-      RouterModule
+      RouterModule,
+      ReactiveFormsModule,
+      FormsModule
     ]
 })
 export class SharedModule { }

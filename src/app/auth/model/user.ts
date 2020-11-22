@@ -1,6 +1,10 @@
 export class User {
-  id: number;
-  name: string;
+  id: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  token: string;
   email: string;
   address?: Address[];
 }
@@ -12,7 +16,3 @@ export class Address {
   houseNumber: string;
 }
 
-export class UserCredentials {
-  email: string;
-  password: string;
-}

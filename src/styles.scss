@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
+.btn {
+  background-color: #dc386d;
+  color: white;
+  border: none;
+  border-radius: 0;
+  min-width: 70px;
+}
+
+.btn:hover {
+  background-color: #ef417a;
+  color: white;
+}
+
 *, ::after, ::before {
   box-sizing: border-box;
 }
@@ -282,4 +295,9 @@ h2 .btn:not(.collapsed) {
   .hero {
     height: 50vh;
   }
+}
+
+.dropdown-item:hover {
+  color: #dc386d;
+  background-color:  white;
 }
