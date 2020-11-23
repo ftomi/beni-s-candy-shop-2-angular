@@ -6,13 +6,16 @@ import { ProfileComponent } from './profile/profile.component';
 import {AuthService} from './auth.service';
 import {AuthGuard} from './auth.guard';
 import { OrdersComponent } from './orders/orders.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [ProfileComponent, OrdersComponent],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: []
 })

@@ -10,6 +10,7 @@ export class User {
 }
 
 export class Address {
+  active: boolean;
   city: string;
   zip: string;
   street: string;

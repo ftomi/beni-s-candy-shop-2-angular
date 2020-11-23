@@ -13,6 +13,7 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {fakeBackendProvider} from './interceptors/backend';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {NgScrollbarModule} from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     AppRoutingModule,
     SharedModule,
-    ProductsModule
+    ProductsModule,
+    NgScrollbarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

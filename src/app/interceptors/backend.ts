@@ -39,10 +39,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     // tslint:disable-next-line:typedef
     function authenticate() {
-      const { username, password } = body;
-
+      const { email, password } = body;
+      console.log(body);
       console.log({users});
-      const user = users.find(x => x.username === username && x.password === password);
+      const user = users.find(x => x.email === email && x.password === password);
+      console.log({user});
       if (!user) { return error('Username or password is incorrect'); }
       return ok({
         ...basicDetails(user),
