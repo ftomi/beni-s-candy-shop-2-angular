@@ -5,39 +5,13 @@
     <div class="d-flex flex-column">
       <div class="row d-flex justify-content-center">
 
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
+        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 " *ngFor="let product of productsByPage">
           <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
+            <app-product-card [product]="product"></app-product-card>
           </div>
         </div>
       </div>
       <button [routerLink]="['/products']" class="col-12 col-md-4 col-lg-3 btn btn-small p-3  mb-5 mt-4 align-self-center text-uppercase">Összes édesség</button>
-
     </div>
   </div>
 </section>

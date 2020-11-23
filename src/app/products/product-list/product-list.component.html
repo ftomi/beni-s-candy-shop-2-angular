@@ -11,53 +11,29 @@
   <div class="container d-flex flex-column offers-inside pt-5">
     <div class="d-flex flex-column mt-5 pt-5">
       <div class="row d-flex justify-content-center">
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
+        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 " *ngFor="let product of productsByPage">
           <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
+            <app-product-card [product]="product"></app-product-card>
           </div>
         </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 ">
-          <div class="card pt-2 px-2" >
-            <app-product-card></app-product-card>
-          </div>
-        </div>
+
       </div>
       <nav class="mx-auto">
         <ul class="pagination d-flex align-items-center">
           <li class="page-item mr-5">
-            <a class="btn btn-small p-3 px-4 btn-block text-uppercase" href="#" aria-label="Previous">
+            <button [disabled]="page === 1" class="btn btn-small p-3 px-4 btn-block text-uppercase" (click)="getPreviousPage()" aria-label="Previous">
               <span aria-hidden="true">←</span>
               <span class="sr-only">Previous</span>
-            </a>
+            </button>
           </li>
-          <li class="page-item mx-2"><a class="page-item-number page-item-active" href="#">1</a></li>
-          <li class="page-item mx-2"><a class="page-item-number" href="#">2</a></li>
-          <li class="page-item mx-2"><a class="page-item-number" href="#">3</a></li>
+          <li class="page-item mx-2"><a class="page-item-number" [ngClass]="{ 'page-item-active': page === 1}" (click)="getByPage(1)">1</a></li>
+          <li class="page-item mx-2"><a class="page-item-number" [ngClass]="{ 'page-item-active': page === 2}" (click)="getByPage(2)">2</a></li>
+          <li class="page-item mx-2"><a class="page-item-number" [ngClass]="{ 'page-item-active': page === 3}" (click)="getByPage(3)">3</a></li>
           <li class="page-item ml-5">
-            <a class="btn btn-small p-3 px-4 btn-block text-uppercase" href="#" aria-label="Next">
+            <button [disabled]="page === 3" class="btn btn-small p-3 px-4 btn-block text-uppercase" (click)="getNextPage()" aria-label="Next">
               <span aria-hidden="true">→</span>
               <span class="sr-only">Next</span>
-            </a>
+            </button>
           </li>
         </ul>
       </nav>

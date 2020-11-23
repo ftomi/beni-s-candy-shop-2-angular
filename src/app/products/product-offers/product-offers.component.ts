@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Product} from '../model/product';
+import {ProductService} from '../product.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AlertService} from '../../shared/alert.service';
+import {first} from 'rxjs/operators';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-product-offers',
@@ -7,9 +13,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductOffersComponent implements OnInit {
 
-  constructor() { }
+  products: Product[];
+  productsByPage: Product[];
+  private loading = true;
+
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
+    this.productService.getAll().pipe(first()).subscribe(
+      next => {
+        this.products = next;
+        this.productsByPage = _.drop(next, 0).slice(0, 6);
+       },
+      error => {
+        // this.alertService.error(error);
+        this.loading = false;
+      }
+    );
   }
-
 }
