@@ -7,6 +7,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductOffersComponent } from './product-offers/product-offers.component';
 import {SharedModule} from '../shared/shared.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,8 @@ import {SharedModule} from '../shared/shared.module';
   imports: [
     CommonModule,
     ProductsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule
   ],
   exports: [

@@ -7,11 +7,13 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from './model/user';
 import {UserCredentials} from './model/userCredentials';
+import {Basket, BasketItem} from './model/basket';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
+  public basketTotal: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(
     private router: Router,
@@ -89,4 +91,31 @@ export class AuthService {
         return x;
       }));
   }
+
+  getBasketTotal(): void {
+    this.http.get<number>(`${environment.apiUrl}/basket-total`)
+      .subscribe(x => {
+        console.log(x);
+        this.basketTotal.next(x);
+      });
+  }
+
+  getBasketItems(basketId: number): Observable<BasketItem[]> {
+    return this.http.get<BasketItem[]>(`${environment.apiUrl}/basket`);
+  }
+
+  addToBasket(item: BasketItem): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/basket/add`, {item});
+  }
+
+  updateBasket(items: Basket): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/basket`, {items});
+  }
+
+  deleteBasket(basketId: number, itemId: number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/basket`);
+  }
+
 }
+
+

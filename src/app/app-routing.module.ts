@@ -10,7 +10,6 @@ const routes: Routes = [
   {path: 'gyik', component: FaqComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)},
-  {path: 'basket', loadChildren: () => import('./basket/basket.module').then(m => m.BasketModule), canActivate: [AuthGuard]},
   {path: 'account', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule), canActivate: [AuthGuard]},
 ];
 

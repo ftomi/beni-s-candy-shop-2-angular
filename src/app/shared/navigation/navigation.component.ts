@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first, switchMap } from 'rxjs/operators';
 import {AlertService} from '../alert.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -20,6 +21,7 @@ export class NavigationComponent implements OnInit {
   loading: boolean;
   loginForm: FormGroup;
   registerForm: FormGroup;
+  basketTotal: any;
 
   constructor(
     public accountService: AuthService,
@@ -28,6 +30,7 @@ export class NavigationComponent implements OnInit {
     private router: Router,
     private alertService: AlertService) {
     this.accountService.user.pipe(switchMap(x => this.accountService.getById(x.id))).subscribe((x: User) => this.user = x);
+    this.basketTotal = this.accountService.basketTotal;
   }
 
   ngOnInit(): void {

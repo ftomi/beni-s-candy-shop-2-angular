@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
+import {Basket} from '../auth/model/basket';
 
 // array in local storage for registered users
 const usersKey = 'app-user-key';
@@ -155,6 +156,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return updateUser();
         case url.match(/\/users\/\d+$/) && method === 'DELETE':
           return deleteUser();
+        case url.endsWith('/basket') && method === 'GET':
+          return getBasket();
+        case url.endsWith('basket') && method === 'PUT':
+          return updateBasket();
+        case url.endsWith('basket/add') && method === 'PUT':
+          return addToBasket();
+        case url.endsWith('basket') && method === 'DELETE':
+          return deleteBasket();
+        case url.endsWith('/basket-total') && method === 'GET':
+          return getBasketTotal();
         default:
           // pass through any requests not handled above
           return next.handle(request);
@@ -214,7 +225,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       const params = body;
       const user = users.find(x => x.id === idFromUrl());
 
-      // only update password if entered
       if (!params.password) {
         delete params.password;
       }
@@ -251,6 +261,77 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(product);
     }
 
+    // tslint:disable-next-line:typedef
+    function getBasket() {
+      if (!isLoggedIn()) { return unauthorized(); }
+
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.find(x => x.id === userId);
+      return ok(user.basket);
+    }
+
+    // tslint:disable-next-line:typedef
+    function getBasketTotal() {
+      if (!isLoggedIn()) { return unauthorized(); }
+
+      const product = products.find(x => x.id === idFromUrl());
+
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.find(x => x.id === userId);
+      if (!user.basket) {
+        return ok(0);
+      }
+      console.log(user.basket.items);
+      const total =  user.basket.items
+        .map(x => x.price * x.quantity)
+        // tslint:disable-next-line:no-shadowed-variable
+        .reduce((total, num) => total + num);
+      return ok(total);
+    }
+
+    // tslint:disable-next-line:typedef
+    function updateBasket(){
+      if (!isLoggedIn()) { return unauthorized(); }
+
+      const params = body;
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.find(x => x.id === userId);
+      if (!user.basket) {
+        user.basket = new Basket();
+        user.basket.items = [];
+      }
+      const basket = {...params};
+      user.basket.items = basket;
+      return ok();
+    }
+
+    // tslint:disable-next-line:typedef
+    function addToBasket(){
+      if (!isLoggedIn()) { return unauthorized(); }
+
+      const params = body;
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.find(x => x.id === userId);
+      if (!user.basket) {
+        user.basket = new Basket();
+        user.basket.items = [];
+      }
+      console.log(params.item)
+      const basket = [...user.basket.items, params.item];
+      user.basket.items = basket;
+      return ok();
+    }
+
+    // tslint:disable-next-line:typedef
+    function deleteBasket() {
+      if (!isLoggedIn()) { return unauthorized(); }
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.filter(x => x.id === userId);
+      if (user.basket) {
+        user.basket = null;
+      }
+      return ok();
+    }
     // helper functions
 
     // tslint:disable-next-line:typedef no-shadowed-variable

@@ -13,5 +13,5 @@
         <span style="color: #dc386d" class="mr-2 font-weight-bold">{{product.discountedPrice}} Ft/db</span>
         <span class="text-decoration-line-through">{{product.price}} Ft/db</span>
       </div>
-      <button href="#" class="btn btn-small p-3  btn-block text-uppercase">Kosárba rakom</button>
+      <button [routerLink]="['products/', product.id]" class="btn btn-small p-3  btn-block text-uppercase">Kosárba rakom</button>
     </div>

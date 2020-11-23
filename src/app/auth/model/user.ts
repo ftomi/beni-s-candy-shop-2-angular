@@ -1,3 +1,5 @@
+import { Basket } from './basket';
+
 export class User {
   id: string;
   username: string;
@@ -7,6 +9,7 @@ export class User {
   token: string;
   email: string;
   address?: Address[];
+  basket?: Basket;
 }
 
 export class Address {
