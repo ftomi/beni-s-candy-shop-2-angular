@@ -7,10 +7,11 @@ import {AuthService} from './auth.service';
 import {AuthGuard} from './auth.guard';
 import { OrdersComponent } from './orders/orders.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BasketComponent } from './basket/basket.component';
 
 
 @NgModule({
-  declarations: [ProfileComponent, OrdersComponent],
+  declarations: [ProfileComponent, OrdersComponent, BasketComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
