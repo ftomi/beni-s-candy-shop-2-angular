@@ -13,10 +13,7 @@ import {BasketItem} from '../model/basket';
 export class OrdersComponent implements OnInit {
   loading: boolean;
   orders: Order[];
-  itemsToDisplay: [{
-    date: string,
-    itemsSummary: number
-  }];
+  itemsToDisplay: any[];
 
   constructor(private accountService: AuthService) {
   }

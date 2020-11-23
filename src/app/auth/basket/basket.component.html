@@ -23,7 +23,10 @@
       <div class="shadow-sm my-5 py-3 px-5 w-100 d-flex row">
         <h4 class="ml-auto">Total:  {{accountService.basketTotal.value}} Ft</h4>
       </div>
-      <button class="btn" (click)="checkout()">x</button>
+      <div>
+        <button class="btn btn-outline-light" (click)="clearBasket()">Kosár ürítése</button>
+        <button class="btn" (click)="checkout()">Fizetés</button>
+      </div>
     </div>
     <ng-template #noContent>
       <div class="container w-50 mx-auto px-5 py-5 mt-5 shadow-sm d-flex align-items-baseline">

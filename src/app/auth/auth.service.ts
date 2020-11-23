@@ -129,6 +129,10 @@ export class AuthService {
   getPastOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${environment.apiUrl}/get-orders`);
   }
+
+  clearBasket(): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/basket`);
+  }
 }
 
 

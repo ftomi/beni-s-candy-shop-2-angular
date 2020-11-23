@@ -148,6 +148,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return getUsers();
         case url.endsWith('/products') && method === 'GET':
           return getProducts();
+        case url.endsWith('/search-products') && method === 'POST':
+          return getProductsByFilter();
         case url.match(/\/products\/\d+$/) && method === 'GET':
           return getProductById();
         case url.match(/\/users\/\d+$/) && method === 'GET':
@@ -253,17 +255,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     // tslint:disable-next-line:typedef
     function getProducts() {
-      if (!isLoggedIn()) { return unauthorized(); }
       return ok(products);
     }
 
     // tslint:disable-next-line:typedef
     function getProductById() {
-      if (!isLoggedIn()) { return unauthorized(); }
-
       const product = products.find(x => x.id === idFromUrl());
       console.log(product);
       return ok(product);
+    }
+
+    // tslint:disable-next-line:typedef
+    function getProductsByFilter() {
+      const params = body;
+      const items = products.filter(x => x.name.includes(params.filter));
+      return ok(items);
     }
 
     // tslint:disable-next-line:typedef
@@ -331,7 +337,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function deleteBasket() {
       if (!isLoggedIn()) { return unauthorized(); }
       const userId = JSON.parse(localStorage.getItem('user')).id;
-      const user = users.filter(x => x.id === userId);
+      const user = users.find(x => x.id === userId);
       if (user.basket) {
         user.basket = null;
       }

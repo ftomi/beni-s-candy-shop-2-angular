@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../shared/alert.service';
 import * as _ from 'lodash';
-import {Subscription} from "rxjs";
+import {Subscription} from'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   products: Product[];
   productsByPage: Product[];
   page = 1;
-  private loading = true;
+  public loading = true;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,

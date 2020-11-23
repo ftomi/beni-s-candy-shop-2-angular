@@ -64,4 +64,14 @@ export class BasketComponent implements OnInit {
       }
     );
   }
+
+  clearBasket(): void {
+    this.accountService.clearBasket().pipe(first()).subscribe(
+      x => {
+        this.loading = false;
+        this.accountService.getBasketTotal();
+        this.basket = null;
+      }
+    );
+  }
 }

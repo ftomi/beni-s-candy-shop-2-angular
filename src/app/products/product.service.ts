@@ -23,4 +23,8 @@ export class ProductService {
   getById(id: string): Observable<Product> {
     return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
   }
+
+  searchByName(filter: string): Observable<Product[]> {
+    return this.http.post<Product[]>(`${environment.apiUrl}/search-products`, {filter});
+  }
 }
