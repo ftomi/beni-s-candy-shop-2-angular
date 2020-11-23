@@ -1,4 +1,5 @@
 import { Basket } from './basket';
+import {Order} from './order';
 
 export class User {
   id: string;
@@ -10,6 +11,7 @@ export class User {
   email: string;
   address?: Address[];
   basket?: Basket;
+  orders?: Order[];
 }
 
 export class Address {

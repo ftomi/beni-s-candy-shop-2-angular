@@ -15,6 +15,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgScrollbarModule} from 'ngx-scrollbar';
 
+import * as moment from 'moment';
+
 @NgModule({
   declarations: [
     AppComponent,

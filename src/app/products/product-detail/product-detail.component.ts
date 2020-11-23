@@ -39,6 +39,7 @@ export class ProductDetailComponent implements OnInit {
   addToBasket(): void {
     const item = new BasketItem();
     item.productId = this.product.id;
+    item.productName = this.product.name;
     item.price = this.product.discountedPrice;
     item.quantity = this.formItemToBasket.value.quantity;
     this.accountService.addToBasket(item).pipe(first()).subscribe();

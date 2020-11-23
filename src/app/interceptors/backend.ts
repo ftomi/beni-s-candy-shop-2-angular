@@ -166,6 +166,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return deleteBasket();
         case url.endsWith('/basket-total') && method === 'GET':
           return getBasketTotal();
+        case url.endsWith('/save-order') && method === 'POST':
+          return addOrder();
+        case url.endsWith('/get-orders') && method === 'GET':
+          return getOrders();
+
         default:
           // pass through any requests not handled above
           return next.handle(request);
@@ -300,9 +305,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         user.basket = new Basket();
         user.basket.items = [];
       }
-      const basket = {...params};
-      user.basket.items = basket;
-      return ok();
+      const basket = {...params.items};
+      user.basket = basket;
+      return ok(user.basket);
     }
 
     // tslint:disable-next-line:typedef
@@ -332,7 +337,32 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       return ok();
     }
-    // helper functions
+
+    // tslint:disable-next-line:typedef
+    function addOrder() {
+      if (!isLoggedIn()) { return unauthorized(); }
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.find(x => x.id === userId);
+      const params = body;
+      if (!user.orders) {
+        user.orders = [];
+      }
+
+      user.orders.push(params);
+      user.basket = null;
+
+      return ok();
+    }
+
+    // tslint:disable-next-line:typedef
+    function getOrders() {
+      if (!isLoggedIn()) { return unauthorized(); }
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = users.find(x => x.id === userId);
+
+      console.log({user});
+      return ok(user.orders);
+    }
 
     // tslint:disable-next-line:typedef no-shadowed-variable
     function ok(body?) {

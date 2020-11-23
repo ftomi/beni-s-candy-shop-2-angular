@@ -4,6 +4,7 @@ export class Basket {
 
 export class BasketItem {
   productId: string;
+  productName: string;
   price: number;
   quantity: number;
 }

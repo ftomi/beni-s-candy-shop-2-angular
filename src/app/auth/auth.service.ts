@@ -8,6 +8,9 @@ import { environment } from '../../environments/environment';
 import { User } from './model/user';
 import {UserCredentials} from './model/userCredentials';
 import {Basket, BasketItem} from './model/basket';
+import { Order } from './model/order';
+
+import * as moment from 'moment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -100,8 +103,8 @@ export class AuthService {
       });
   }
 
-  getBasketItems(basketId: number): Observable<BasketItem[]> {
-    return this.http.get<BasketItem[]>(`${environment.apiUrl}/basket`);
+  getBasketItems(): Observable<Basket> {
+    return this.http.get<Basket>(`${environment.apiUrl}/basket`);
   }
 
   addToBasket(item: BasketItem): Observable<any> {
@@ -116,6 +119,16 @@ export class AuthService {
     return this.http.delete(`${environment.apiUrl}/basket`);
   }
 
+  checkout(basket: Basket): Observable<any> {
+    const order = new Order();
+    order.basket = basket;
+    order.completed = moment().unix().toString();
+    return this.http.post(`${environment.apiUrl}/save-order`, order);
+  }
+
+  getPastOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${environment.apiUrl}/get-orders`);
+  }
 }
 
 
