@@ -15,7 +15,7 @@ export class ProductOffersComponent implements OnInit {
 
   products: Product[];
   productsByPage: Product[];
-  private loading = true;
+  loading = true;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,

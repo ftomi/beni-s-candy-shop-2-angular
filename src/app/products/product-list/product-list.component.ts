@@ -42,7 +42,7 @@ export class ProductListComponent implements OnInit {
 
   }
 
-  getByPage(page: number): void{
+  getByPage(page: number): void {
 
     this.loading = true;
     this.page = page;
@@ -51,10 +51,10 @@ export class ProductListComponent implements OnInit {
   }
 
   getNextPage(): void{
-    this.getByPage(this.page++);
+    this.getByPage(++this.page);
   }
 
   getPreviousPage(): void{
-    this.getByPage(this.page--);
+    this.getByPage(--this.page);
   }
 }

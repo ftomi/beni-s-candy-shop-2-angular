@@ -1,11 +1,7 @@
-
-
-
-
     <h6><span class="badge badge-dark rounded-0 px-3 py-2">Új! </span></h6>
     <div class="overflow-hidden">
       <img width="300" height="200" src="{{product.image}}"
-           class="card-img-top mt-5 product-image" alt="coke" />
+           class="card-img-top mt-5 product-card-image" alt="coke" />
     </div>
     <div class="card-body">
       <h5 class="card-title  font-weight-bold">{{product.name}}</h5>
@@ -13,5 +9,5 @@
         <span style="color: #dc386d" class="mr-2 font-weight-bold">{{product.discountedPrice}} Ft/db</span>
         <span class="text-decoration-line-through">{{product.price}} Ft/db</span>
       </div>
-      <button [routerLink]="['/products/', product.id]" class="btn btn-small p-3  btn-block text-uppercase">Kosárba rakom</button>
+      <button [routerLink]="['/products/', product.id]" class="btn btn-small p-3  btn-block text-uppercase product-card-btn">Kosárba rakom</button>
     </div>
