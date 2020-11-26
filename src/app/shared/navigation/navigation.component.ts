@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {User} from '../../auth/model/user';
 import {AuthService} from '../../auth/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first, switchMap } from 'rxjs/operators';
 import {AlertService} from '../alert.service';
@@ -21,6 +21,7 @@ export class NavigationComponent implements OnInit {
   loading: boolean;
   loginForm: FormGroup;
   registerForm: FormGroup;
+  termsAccepted: boolean;
   basketTotal: any;
 
   constructor(
@@ -33,17 +34,82 @@ export class NavigationComponent implements OnInit {
     this.basketTotal = this.accountService.basketTotal;
   }
 
+  // tslint:disable-next-line:typedef
+  get loginFormControl() {
+    return this.loginForm.controls;
+  }
+  // tslint:disable-next-line:typedef
+  get registerFormControl() {
+    return this.registerForm.controls;
+  }
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required]
     });
     this.registerForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      password2: ['', Validators.required]
+      email: ['', Validators.compose([Validators.required, Validators.email])/*, this.emailValidator.bind(this)*/],
+      password: ['', Validators.compose([Validators.required, this.patternValidator()])],
+      password2: ['', Validators.compose([Validators.required, this.patternValidator()])],
+        termsAccepted: [false, Validators.requiredTrue]
+    },
+      {
+        validator: this.matchPassword('password', 'password2'),
+   });
+  }
+
+  // tslint:disable-next-line:typedef
+  async emailValidator(userControl: AbstractControl) {
+    console.log(userControl.value);
+    const available = await this.accountService.checkUserName(userControl.value);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (!available) {
+          resolve({ userNameNotAvailable: true });
+        } else {
+          resolve(null);
+        }
+      }, 1000);
     });
   }
+
+
+
+  // tslint:disable-next-line:typedef
+  patternValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null;
+      }
+      const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+      const valid = regex.test(control.value);
+      return valid ? null : { invalidPassword: true };
+    };
+  }
+
+  // tslint:disable-next-line:typedef
+  matchPassword(password: string, confirmPassword: string) {
+    return (formGroup: FormGroup) => {
+      const passwordControl = formGroup.controls[password];
+      const confirmPasswordControl = formGroup.controls[confirmPassword];
+
+      if (!passwordControl || !confirmPasswordControl) {
+        return null;
+      }
+
+      if (confirmPasswordControl.errors && !confirmPasswordControl.errors.passwordMismatch) {
+        return null;
+      }
+
+      if (passwordControl.value !== confirmPasswordControl.value) {
+        confirmPasswordControl.setErrors({ passwordMismatch: true });
+      } else {
+        confirmPasswordControl.setErrors(null);
+      }
+    }
+  }
+
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line:typedef

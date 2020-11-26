@@ -36,7 +36,7 @@
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" #closeAddAddressModal class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" #closeAddAddressModal class="close" (click)="addressForm.reset()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -45,24 +45,40 @@
           <div class="mb-5">
             <form [formGroup]="addressForm" (ngSubmit)="onAdd()" class="mb-3">
               <div class="form-group">
-                <input type="text" formControlName="city" class="form-control custom-input" id="address-city">
+                <input type="text" formControlName="city" class="form-control custom-input" id="address-city" >
                 <label for="address-city" class="col-form-label">Város</label>
+                <span class="text-danger"
+                      *ngIf="(addressFormControl.city.touched) && addressFormControl.city.errors?.required">
+                      Kötelező mező
+                </span>
               </div>
               <div class="form-group">
                 <input type="text" formControlName="zip" class="form-control custom-input" id="address-zip">
                 <label for="address-zip" class="col-form-label">Irányítószám</label>
+                <span class="text-danger"
+                      *ngIf="(addressFormControl.zip.touched) && addressFormControl.zip.errors?.required">
+                      Kötelező mező
+                </span>
               </div>
               <div class="form-group">
                 <input type="text" formControlName="street" class="form-control custom-input" id="address-street">
                 <label for="address-street" class="col-form-label">Utca</label>
+                <span class="text-danger"
+                      *ngIf="(addressFormControl.street.touched) && addressFormControl.street.errors?.required">
+                      Kötelező mező
+                </span>
               </div>
               <div class="form-group">
                 <input type="text" formControlName="houseNumber" class="form-control custom-input" id="address-houseNumber">
                 <label for="address-houseNumber" class="col-form-label">Házszám</label>
+                <span class="text-danger"
+                      *ngIf="(addressFormControl.houseNumber.touched) && addressFormControl.houseNumber.errors?.required">
+                      Kötelező mező
+                </span>
               </div>
             </form>
           </div>
-          <button (click)="onAdd()" type="button" class="mt-5 btn btn-small p-3  btn-block text-uppercase">Mentés</button>
+          <button [disabled]="!addressForm.valid" (click)="onAdd()" type="button" class="mt-5 btn btn-small p-3  btn-block text-uppercase">Mentés</button>
 
         </div>
       </div>

@@ -30,6 +30,12 @@ export class AuthService {
     return this.userSubject.value;
   }
 
+    // tslint:disable-next-line:typedef
+    checkUserName(username: string) {
+      return this.http.post(`${environment.apiUrl}/check-user`, {username});
+    }
+
+
   // tslint:disable-next-line:typedef
   login(userCreds: UserCredentials) {
     const {email, password} = userCreds;
@@ -70,13 +76,12 @@ export class AuthService {
   update(id, params) {
     return this.http.put(`${environment.apiUrl}/users/${id}`, params)
       .pipe(map(x => {
-        // update stored user if the logged in user updated their own record
+
         if (id === this.userValue.id) {
-          // update local storage
+
           const user = { ...this.userValue, ...params };
           localStorage.setItem('user', JSON.stringify(user));
 
-          // publish updated user to subscribers
           this.userSubject.next(user);
         }
         return x;

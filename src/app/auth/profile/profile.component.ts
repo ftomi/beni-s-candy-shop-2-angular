@@ -97,6 +97,11 @@ export class ProfileComponent implements OnInit {
       this.profileForm.patchValue(this.user);
     }
   }
+  // tslint:disable-next-line:typedef
+  get addressFormControl() {
+    console.log(this.addressForm);
+    return this.addressForm.controls;
+  }
 
   activate(index: number): void {
     if (this.user.address) {
