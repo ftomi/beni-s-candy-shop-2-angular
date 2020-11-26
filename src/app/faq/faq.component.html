@@ -4,12 +4,12 @@
     <h2 class="header w-100 pb-3">Gyakran ismételt kérdések</h2>
     <h4 class="mt-4 mb-3">Fizetés és kézbesítés</h4>
     <div class="accordion" id="accordionPaymentsAndDelivery">
-      <div class="card mt-1 rounded-0 p-0">
+      <div class="card mt-1 rounded-0 p-0 " [ngClass]="pinkBorder[0]  ? 'pinkborder' : ''" >
         <div class="card-header -m-1 p-0" id="headingPaymentsOne">
           <h2 class="mb-0">
-            <button class="btn btn-block text-left collapsed  d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapsePaymentsOne" aria-expanded="false" aria-controls="collapsePaymentsOne">
+            <button (click)="setBorder(0)" class="btn btn-block text-left collapsed  d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapsePaymentsOne" aria-expanded="false" aria-controls="collapsePaymentsOne">
               <span>Milyen fizetési lehetőségeim vannak?</span>
-              <span>+</span>
+              <span>{{pinkBorder[0] ? '-' : '+'}}</span>
             </button>
           </h2>
         </div>
@@ -20,12 +20,12 @@
           </div>
         </div>
       </div>
-      <div class="card mt-1 rounded-0 p-0">
+      <div class="card mt-1 rounded-0 p-0" [ngClass]="pinkBorder[1]  ? 'pinkborder' : ''" >
         <div class="card-header -m-1 p-0" id="headingPaymentsTwo">
           <h2 class="mb-0">
-            <button class="btn btn-block text-left collapsed  d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapsePaymentsTwo" aria-expanded="false" aria-controls="collapsePaymentsTwo">
+            <button (click)="setBorder(1)" class="btn btn-block text-left collapsed  d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapsePaymentsTwo" aria-expanded="false" aria-controls="collapsePaymentsTwo">
               <span>Milyen szállítási opciók vannak?</span>
-              <span>+</span>
+              <span>{{pinkBorder[1] ? '-' : '+'}}</span>
             </button>
           </h2>
         </div>
@@ -38,12 +38,12 @@
     </div>
     <h4 class="mt-4 mb-3">Problémám merült fel az oldalon</h4>
     <div class="accordion" id="accordionProductProblems">
-      <div class="card mt-1 rounded-0 p-0">
+      <div class="card mt-1 rounded-0 p-0" [ngClass]="pinkBorder[2]  ? 'pinkborder' : ''" >
         <div class="card-header -m-1 p-0" id="headingProductProblemsOne">
           <h2 class="mb-0">
-            <button class="btn btn-block text-left collapsed  d-flex justify-content-between  py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProductProblemsOne" aria-expanded="false" aria-controls="collapseProductProblemsOne">
+            <button (click)="setBorder(2)"  class="btn btn-block text-left collapsed  d-flex justify-content-between  py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProductProblemsOne" aria-expanded="false" aria-controls="collapseProductProblemsOne">
               <span>Milyen szállítási opciók vannak?</span>
-              <span>+</span>
+              <span>{{pinkBorder[2] ? '-' : '+'}}</span>
             </button>
           </h2>
         </div>
@@ -54,12 +54,12 @@
           </div>
         </div>
       </div>
-      <div class="card mt-1 rounded-0 p-0">
+      <div class="card mt-1 rounded-0 p-0" [ngClass]="pinkBorder[3]  ? 'pinkborder' : ''" >
         <div class="card-header -m-1 p-0" id="headingProductProblemsTwo">
           <h2 class="mb-0">
-            <button class="btn btn-block text-left collapsed d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProductProblemsTwo" aria-expanded="false" aria-controls="collapseProductProblemsTwo">
+            <button (click)="setBorder(3)"  class="btn btn-block text-left collapsed d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProductProblemsTwo" aria-expanded="false" aria-controls="collapseProductProblemsTwo">
               <span>Milyen szállítási opciók vannak?</span>
-              <span>+</span>
+              <span>{{pinkBorder[3] ? '-' : '+'}}</span>
             </button>
           </h2>
         </div>
@@ -72,13 +72,13 @@
     </div>
     <h4 class="mt-4 mb-3">Mit tegyek, ha nem vagyok elégedett a termékekkel?</h4>
     <div class="accordion" id="accordionProblems">
-      <div class="card mt-1 rounded-0 p-0">
+      <div class="card mt-1 rounded-0 p-0"  [ngClass]="pinkBorder[4]  ? 'pinkborder' : ''">
         <div class="card-header -m-1 p-0" id="headingProblemsOne">
           <h2 class="mb-0">
-            <button class="btn btn-block text-left collapsed d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProblemsOne" aria-expanded="true" aria-controls="collapsePaymentsOne">
+            <button (click)="setBorder(4)"  class="btn btn-block text-left collapsed d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProblemsOne" aria-expanded="true" aria-controls="collapsePaymentsOne">
 
               <span>Mit tegyek, ha nem vagyok megelégedve a rendelt termékkel?</span>
-              <span>+</span>
+              <span>{{pinkBorder[4] ? '-' : '+'}}</span>
             </button>
           </h2>
         </div>
@@ -89,13 +89,13 @@
           </div>
         </div>
       </div>
-      <div class="card mt-1 rounded-0 p-0">
+      <div class="card mt-1 rounded-0 p-0"  [ngClass]="pinkBorder[5]  ? 'pinkborder' : ''">
         <div class="card-header -m-1 p-0" id="headingProblemsTwo">
           <h2 class="mb-0">
-            <button class="btn btn-block text-left collapsed d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProblemsTwo" aria-expanded="false" aria-controls="collapsePaymentsTwo">
+            <button (click)="setBorder(5)"  class="btn btn-block text-left collapsed d-flex justify-content-between py-3 px-4 rounded-0" type="button" data-toggle="collapse" data-target="#collapseProblemsTwo" aria-expanded="false" aria-controls="collapsePaymentsTwo">
 
               <span>Levásárolhatom az összeget, ha nem vagyok megelégedve?</span>
-              <span>+</span>
+              <span>{{pinkBorder[5] ? '-' : '+'}}</span>
             </button>
           </h2>
         </div>
