@@ -27,6 +27,7 @@ export class ProductOffersComponent implements OnInit {
       next => {
         this.products = next;
         this.productsByPage = _.drop(next, 0).slice(0, 6);
+        this.loading = false;
        },
       error => {
         // this.alertService.error(error);

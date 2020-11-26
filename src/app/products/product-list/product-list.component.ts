@@ -29,6 +29,7 @@ export class ProductListComponent implements OnInit {
     next => {
       this.products = next;
       this.page = 1;
+      this.loading = false;
       this.productsByPage = _.drop(next, 0).slice(0, 6);
     },
     error => {
@@ -42,8 +43,11 @@ export class ProductListComponent implements OnInit {
   }
 
   getByPage(page: number): void{
+
+    this.loading = true;
     this.page = page;
     this.productsByPage = _.drop(this.products, (page - 1) * 6).slice(0, 6);
+    this.loading = false;
   }
 
   getNextPage(): void{

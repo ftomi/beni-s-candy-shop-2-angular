@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
         next: () => {
           this.router.navigateByUrl('/account');
           this.closeAddAddressModal.nativeElement.click();
-          location.reload();
+          // location.reload();
         },
         error: error => {
           // this.alertService.error(error);
@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit {
         next: () => {
           this.router.navigateByUrl('/account');
           this.closeAddAddressModal.nativeElement.click();
-          location.reload();
+          // location.reload();
         },
         error: error => {
           // this.alertService.error(error);

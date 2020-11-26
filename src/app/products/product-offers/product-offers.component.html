@@ -2,16 +2,23 @@
 <section class="offers">
   <div class="container d-flex flex-column offers-inside">
     <h3 class="text-white align-self-center mb-4 mt-5">Ajánlott édességek</h3>
-    <div class="d-flex flex-column">
-      <div class="row d-flex justify-content-center">
+    <div *ngIf="loading; else loaded" class="container d-flex justify-content-center align-items-center">
+      <div class="spinner-border m-5 text-light" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <ng-template #loaded>
+      <div class="d-flex flex-column">
+        <div class="row d-flex justify-content-center">
 
-        <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 " *ngFor="let product of productsByPage">
-          <div class="card pt-2 px-2" >
-            <app-product-card [product]="product"></app-product-card>
+          <div class="px-2 col-12 col-md-6 col-lg-4 mb-3 " *ngFor="let product of productsByPage">
+            <div class="card pt-2 px-2" >
+              <app-product-card [product]="product"></app-product-card>
+            </div>
           </div>
         </div>
+        <button [routerLink]="['/products']" class="col-12 col-md-4 col-lg-3 btn btn-small p-3  mb-5 mt-4 align-self-center text-uppercase">Összes édesség</button>
       </div>
-      <button [routerLink]="['/products']" class="col-12 col-md-4 col-lg-3 btn btn-small p-3  mb-5 mt-4 align-self-center text-uppercase">Összes édesség</button>
-    </div>
+    </ng-template>
   </div>
 </section>
