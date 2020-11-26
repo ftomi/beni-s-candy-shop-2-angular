@@ -6,10 +6,15 @@
   </div>
   <div class="card-body">
     <h5 class="card-title  font-weight-bold">{{product.name}}</h5>
-    <div class="d-flex mb-3">
+    <div class="d-flex mb-3" *ngIf="product.discountedPrice !== product.price; else discounted">
       <span style="color: #dc386d" class="mr-2 font-weight-bold">{{product.discountedPrice}} Ft/db</span>
       <span class="text-decoration-line-through">{{product.price}} Ft/db</span>
     </div>
+    <ng-template #discounted>
+      <div class="d-flex mb-3">
+        <span class="font-weight-bold">{{product.price}} Ft/db</span>
+      </div>
+    </ng-template>
     <button [routerLink]="['/products/', product.id]" class="btn btn-small p-3  btn-block text-uppercase product-card-btn">Kosárba rakom</button>
   </div>
 </div>

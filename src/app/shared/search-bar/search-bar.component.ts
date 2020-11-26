@@ -3,6 +3,7 @@ import {ProductService} from '../../products/product.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { Product } from 'src/app/products/model/product';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-search-bar',
@@ -24,12 +25,17 @@ export class SearchBarComponent implements OnInit {
     });
   }
 
+  filterItemsOnType(): void {
+    _.debounce(this.onSearch, 300);
+  }
+
   onSearch(): void {
     if (this.searchForm.value.filter.length < 3) {
       this.filteredItems = [];
       return;
     }
     this.loading = true;
+
     this.productService.searchByName(this.searchForm.value.filter)
       .pipe(first())
       .subscribe( x => {
@@ -37,5 +43,8 @@ export class SearchBarComponent implements OnInit {
         this.filteredItems = x;
         console.log(this.filteredItems);
       });
+
+
   }
+
 }
