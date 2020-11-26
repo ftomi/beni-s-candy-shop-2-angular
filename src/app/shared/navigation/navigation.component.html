@@ -96,7 +96,12 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              {{user.username ? user.username : user.email}}
+              <span>
+                <span class="d-md-none d-inline-block "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20">
+                            <path fill-rule="evenodd" fill="white" d="M10.5 5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm.061 3.073a4 4 0 10-5.123 0 6.004 6.004 0 00-3.431 5.142.75.75 0 001.498.07 4.5 4.5 0 018.99 0 .75.75 0 101.498-.07 6.005 6.005 0 00-3.432-5.142z"></path></svg></span>
+                <span class="d-none d-md-inline-block pl-md-2 ">
+                  {{user.username ? user.username : user.email}}</span>
+              </span>
             </a>
             <div
               class="dropdown-menu dropdown-menu-right"
@@ -159,7 +164,10 @@
   </div>
   <div>
     <nav class=" navbar navbar-light navbar-expand-md d-flex py-2 py-md-4 px-5">
-      <a class="navbar-brand" style="font-size: 2em;" href="#">Beni's</a>
+      <a class="navbar-brand" style="font-size: 2em;" href="#">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/text.png" alt="">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

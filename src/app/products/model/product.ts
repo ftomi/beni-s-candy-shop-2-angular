@@ -5,4 +5,5 @@ export class Product {
   price: number;
   discountedPrice: number;
   image: string;
+  sliderImages: string[];
 }
