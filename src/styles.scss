@@ -86,9 +86,18 @@
 .product {
   &-card {
     transition: background-color 0.5s;
+
     &:hover {
-      background-color: #ffdddf;
+      background-color: #eee4e4;
+
     }
+
+    &-container:hover {
+      &:nth-child(2):first-child {
+        content: ''
+      }
+    }
+
     &-btn {
       padding: 0.5rem 1rem;
       font-weight: 600;

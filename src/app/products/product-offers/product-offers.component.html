@@ -11,7 +11,7 @@
       <div class="d-flex flex-column">
         <div class="row d-flex justify-content-center">
 
-          <div class="px-2 col-12 col-md-6 col-lg-4 mb-3" *ngFor="let product of productsByPage">
+          <div class="px-2 col-12 col-md-6 col-lg-4 mb-3" style="max-width: 400px;" *ngFor="let product of productsByPage">
             <div class="card pt-2 px-2 product-card" >
               <app-product-card [product]="product"></app-product-card>
             </div>
